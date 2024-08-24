@@ -16,7 +16,15 @@
     "api",
     "cli"
   ],
-  "author": "Devboy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mdzyaan/devboy-cli.git"
+  },
+  "homepage": "https://github.com/mdzyaan/devboy-cli#readme",
+  "bugs": {
+    "url": "https://github.com/mdzyaan/devboy-cli/issues"
+  },
+  "author": "Mohammed Zyaan",
   "license": "ISC",
   "dependencies": {
     "commander": "^8.3.0",
