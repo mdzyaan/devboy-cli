@@ -1,0 +1,126 @@
+{
+  "compute": [
+    {
+      "id": "aws",
+      "name": "AWS",
+      "description": "API Gateway HTTP API + Lambda",
+      "status": "available",
+      "envKeys": []
+    },
+    {
+      "id": "azure",
+      "name": "Azure",
+      "description": "Azure Container Apps / Functions (coming soon)",
+      "status": "coming_soon",
+      "envKeys": []
+    },
+    {
+      "id": "gcp",
+      "name": "Google Cloud",
+      "description": "Cloud Run (coming soon)",
+      "status": "coming_soon",
+      "envKeys": []
+    },
+    {
+      "id": "oci",
+      "name": "Oracle Cloud (OCI)",
+      "description": "OCI Functions / Container Instances (coming soon)",
+      "status": "coming_soon",
+      "envKeys": []
+    }
+  ],
+  "auth": [
+    {
+      "id": "clerk",
+      "name": "Clerk",
+      "description": "Hosted auth with JWT verification in your API",
+      "status": "available",
+      "envKeys": ["CLERK_SECRET_KEY", "CLERK_PUBLISHABLE_KEY"],
+      "docsUrl": "https://clerk.com/docs"
+    },
+    {
+      "id": "auth0",
+      "name": "Auth0",
+      "description": "Coming soon",
+      "status": "coming_soon",
+      "envKeys": ["AUTH0_DOMAIN", "AUTH0_AUDIENCE"]
+    },
+    {
+      "id": "cognito",
+      "name": "AWS Cognito",
+      "description": "Coming soon",
+      "status": "coming_soon",
+      "envKeys": ["COGNITO_USER_POOL_ID", "COGNITO_CLIENT_ID"]
+    },
+    {
+      "id": "none",
+      "name": "None",
+      "description": "No auth integration",
+      "status": "available",
+      "envKeys": []
+    }
+  ],
+  "db": [
+    {
+      "id": "neon",
+      "name": "Neon",
+      "description": "Serverless Postgres",
+      "status": "available",
+      "envKeys": ["DATABASE_URL"],
+      "docsUrl": "https://neon.tech/docs"
+    },
+    {
+      "id": "mongodb-atlas",
+      "name": "MongoDB Atlas",
+      "description": "Managed MongoDB",
+      "status": "available",
+      "envKeys": ["MONGODB_URI"],
+      "docsUrl": "https://www.mongodb.com/docs/atlas/"
+    },
+    {
+      "id": "none",
+      "name": "None",
+      "description": "No database integration",
+      "status": "available",
+      "envKeys": []
+    }
+  ],
+  "cron": [
+    {
+      "id": "qstash",
+      "name": "Upstash QStash",
+      "description": "HTTP cron / queues (cloud-agnostic)",
+      "status": "available",
+      "envKeys": ["QSTASH_TOKEN", "QSTASH_CURRENT_SIGNING_KEY", "QSTASH_NEXT_SIGNING_KEY"],
+      "docsUrl": "https://upstash.com/docs/qstash"
+    },
+    {
+      "id": "eventbridge",
+      "name": "AWS EventBridge Scheduler",
+      "description": "Coming soon",
+      "status": "coming_soon",
+      "envKeys": []
+    },
+    {
+      "id": "trigger",
+      "name": "Trigger.dev",
+      "description": "Coming soon",
+      "status": "coming_soon",
+      "envKeys": []
+    },
+    {
+      "id": "inngest",
+      "name": "Inngest",
+      "description": "Coming soon",
+      "status": "coming_soon",
+      "envKeys": []
+    },
+    {
+      "id": "none",
+      "name": "None",
+      "description": "No scheduled jobs",
+      "status": "available",
+      "envKeys": []
+    }
+  ]
+}

@@ -1,20 +1,39 @@
 {
   "name": "devboy-cli",
-  "version": "1.0.2",
-  "description": "CLI for managing serverless API projects",
+  "version": "2.0.0",
+  "description": "CLI for Devboy backend APIs — AWS deploy, Clerk/Neon/Atlas/QStash integrations, local Studio",
   "main": "index.js",
   "bin": {
     "devboy": "./bin/devboy.js"
   },
+  "exports": {
+    ".": "./index.js",
+    "./sdk": "./sdk/index.js",
+    "./lib/config": "./lib/config.js",
+    "./lib/runtime/router": "./lib/runtime/router.js"
+  },
+  "files": [
+    "bin",
+    "lib",
+    "catalog",
+    "studio",
+    "sdk",
+    "index.js",
+    "README.md"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test test/*.test.js",
+    "studio:install": "npm install --prefix studio"
   },
   "keywords": [
     "Devboy",
     "backend",
     "serverless",
     "api",
-    "cli"
+    "cli",
+    "aws",
+    "clerk",
+    "neon"
   ],
   "repository": {
     "type": "git",
@@ -27,10 +46,15 @@
   "author": "Mohammed Zyaan",
   "license": "ISC",
   "dependencies": {
-    "commander": "^8.3.0",
-    "inquirer": "^8.2.0",
-    "fs-extra": "^10.0.0",
+    "@aws-sdk/client-apigatewayv2": "^3.637.0",
+    "@aws-sdk/client-iam": "^3.637.0",
+    "@aws-sdk/client-lambda": "^3.637.0",
+    "@aws-sdk/client-sts": "^3.637.0",
+    "archiver": "^7.0.1",
     "chalk": "^4.1.2",
-    "express": "^4.17.1"
+    "commander": "^8.3.0",
+    "express": "^4.19.2",
+    "fs-extra": "^10.0.0",
+    "inquirer": "^8.2.0"
   }
 }

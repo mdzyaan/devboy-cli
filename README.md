@@ -1,112 +1,67 @@
 # devboy-cli
 
-devboy-cli is a powerful CLI tool for creating and managing serverless API projects. It simplifies the process of setting up and developing serverless applications.
+Backend-only toolkit: local Lambda-compatible API, pluggable **Clerk / Neon / MongoDB Atlas / QStash**, **AWS deploy** with a public URL, and a **local Next.js Studio** for configuration (never deployed).
 
-## Table of Contents
-
-- [Installation](#installation)
-- [Quick Start](#quick-start)
-- [Usage](#usage)
-  - [Creating a New Project](#creating-a-new-project)
-  - [Adding a New Route](#adding-a-new-route)
-  - [Starting the Development Server](#starting-the-development-server)
-- [Configuration](#configuration)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Installation
-
-You can install devboy-cli globally using npm:
+## Install
 
 ```bash
 npm install -g devboy-cli
+# or use via npx / project dependency
 ```
 
-## Quick Start
+## Commands
 
-To create a new project:
+| Command | Purpose |
+|---------|---------|
+| `devboy start` | Local API on `:3000` (API Gateway-shaped events) |
+| `devboy studio` | Local config UI (bundled catalog, offline) |
+| `devboy deploy` | Deploy API to AWS (Lambda + HTTP API) |
+| `devboy doctor` | Check AWS profile + integration env |
+| `devboy apply` | Scaffold auth/db/cron helpers into the project |
+| `devboy new:route` | Add a route handler |
+| `devboy new:job` | Add a cron job route |
+| `devboy catalog` | Print bundled integrations JSON |
 
-```bash
-npx create-devboy-app my-project
-cd my-project
-npm start
-```
+## Functions SDK
 
-## Usage
+In route handlers, prefer:
 
-### Creating a New Project
+```js
+const { db, auth } = require('devboy');
 
-To create a new Devboy project, use the `create-devboy-app` command:
-
-```bash
-npx create-devboy-app my-project
-```
-
-This will set up a new project with the basic structure and configuration.
-
-### Adding a New Route
-
-To add a new route to your project:
-
-```bash
-devboy new:route
-```
-
-Follow the prompts to specify the route path, HTTP method, and function to handle the route.
-
-### Starting the Development Server
-
-To start the development server:
-
-```bash
-npm start
-```
-
-or
-
-```bash
-devboy start
-```
-
-This will start a local development server, typically on http://localhost:3000.
-
-## Configuration
-
-Devboy uses a `devboy.config.js` file in the root of your project for configuration. Here's an example:
-
-```javascript
-module.exports = {
-  api: {
-    handler: 'index.js',
-    routes: [
-      { path: '/users', method: 'GET', handler: 'api/users/get/index.js' },
-      // Add more routes here
-    ]
-  }
+module.exports = async (params, context) => {
+  // const user = await auth.requireAuth(context);
+  // if (user.error) return user.error;
+  const items = await db.table('items').find();
+  return { ok: true, items };
 };
 ```
 
-## Project Structure
+No `../../../lib/...` paths. Plain object returns become `200` JSON; `{ statusCode, body }` still works (Lambda style).
 
-A typical Devboy project structure looks like this:
+## Config (`devboy.config.js`)
 
+```js
+module.exports = {
+  compute: { provider: 'aws', region: 'us-east-1' },
+  auth: { provider: 'clerk' },
+  db: { provider: 'neon' },
+  cron: { provider: 'qstash' }, // or 'none'
+  api: { handler: 'index.js', routes: [] },
+  jobs: [],
+};
 ```
-my-project/
-├── api/
-│   └── [route-folders]/
-│       └── [method]/
-│           └── index.js
-├── models/
-├── index.js
-├── devboy.config.js
-└── package.json
+
+Secrets go in `.env.local`. Azure / GCP / OCI compute providers are stubbed for later.
+
+## AWS accounts
+
+Use an existing AWS profile / SSO. New accounts: create at [aws.amazon.com](https://aws.amazon.com/), then `aws configure`. Devboy does not create AWS accounts.
+
+## Create a project
+
+```bash
+npx create-devboy-app my-api
+cd my-api
+npm run studio
 ```
-
-## Contributing
-
-We welcome contributions to devboy-cli! Please see our [Contributing Guide](CONTRIBUTING.md) for more details.
-
-## License
-
-devboy-cli is [MIT licensed](LICENSE).
