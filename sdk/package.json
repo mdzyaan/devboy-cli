@@ -1,5 +1,5 @@
 {
-  "name": "devboy",
+  "name": "devboy-sdk",
   "version": "2.0.0",
   "description": "Devboy Functions SDK — db + auth helpers for route handlers",
   "main": "index.js",
